@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supercars Gallery | Luxury Experience</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+
+    <div class="logo">
+    <span>SUPERCARS</span> GALLERY
+</div>
+<div class="hamburger"><i class="fas fa-bars"></i></div>
+<nav>
+<ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+</header>
+
+<!-- HERO SECTION -->
+<section id="home" class="hero">
+<div class="hero-content">
+<h1>
+BEYOND<br>
+SPEED.<br>
+BEYOND<br>
+LUXURY.
+</h1>
+
+<p>Explore the world's most exclusive supercars.</p>
+<button class="btn-primary">Discover</button>
+</div>
+
+<div class="tilt-card-container">
+
+<div class="tilt-card" id="heroCard">
+<img src="Red-bugatti.jpg" alt="Bugatti">
+<div class="card-overlay">
+<h3>Buggati</h3>
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- GALLERY -->
+
+<section id="gallery" class="gallery-section">
+
+<h2>Supercar Collection</h2>
+
+<div class="filter-bar">
+
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="ferrari">Ferrari</button>
+<button class="filter-btn" data-filter="lamborghini">Lamborghini</button>
+<button class="filter-btn" data-filter="porsche">Porsche</button>
+<button class="filter-btn" data-filter="mclaren">McLaren</button>
+
+</div>
+<div class="car-grid">
+<div class="car-card" data-brand="ferrari">
+
+<img src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=500">
+
+<div class="car-info">
+
+<h3>Ferrari SF90</h3>
+
+<p>Hybrid hypercar engineering.</p>
+
+<div class="specs">
+<span><i class="fas fa-bolt"></i> 986 HP</span>
+<span><i class="fas fa-tachometer-alt"></i> 2.5s</span>
+</div>
+
+<div class="price">$625,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="ferrari">
+
+<img src="pic-2.jpg">
+
+<div class="car-info">
+
+<h3>Ferrari 488 Pista</h3>
+
+<p>Track-focused performance.</p>
+
+<div class="price">$350,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="lamborghini">
+
+<img src="pic-3.jpg">
+
+<div class="car-info">
+
+<h3>Lamborghini Aventador</h3>
+
+<div class="price">$500,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="lamborghini">
+
+<img src="pic-4.jpg">
+
+<div class="car-info">
+
+<h3>Lamborghini Huracán</h3>
+
+<div class="price">$270,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="porsche">
+
+<img src="pic-5.jpg">
+
+<div class="car-info">
+
+<h3>Porsche GT3 RS</h3>
+
+<div class="price">$223,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="porsche">
+
+<img src="pic-6.jpg">
+
+<div class="car-info">
+
+<h3>Porsche 911 Turbo</h3>
+
+<div class="price">$180,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="mclaren">
+
+<img src="pagani.jpg">
+
+<div class="car-info">
+
+<h3>McLaren 720S</h3>
+
+<div class="price">$300,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="mclaren">
+
+<img src="Bugatti.jpg">
+
+<div class="car-info">
+
+<h3>McLaren P1</h3>
+
+<div class="price">$1,150,000</div>
+
+</div>
+
+</div>
+<div class="car-card" data-brand="ferrari">
+
+<img src="McLaren.jpg">
+
+<div class="car-info">
+
+<h3>Ferrari F8 Tributo</h3>
+
+<div class="price">$280,000</div>
+
+</div>
+
+</div>
+
+<div class="car-card" data-brand="lamborghini">
+
+<img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1b?auto=format&fit=crop&q=80&w=500">
+
+<div class="car-info">
+
+<h3>Lamborghini Revuelto</h3>
+
+<div class="price">$600,000</div>
+
+</div>
+
+</div>
+
+
+<div class="car-card" data-brand="porsche">
+
+<img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&q=80&w=500">
+
+<div class="car-info">
+
+<h3>Porsche Taycan Turbo</h3>
+
+<div class="price">$150,000</div>
+
+</div>
+
+</div>
+
+
+<div class="car-card" data-brand="mclaren">
+
+<img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=500">
+
+<div class="car-info">
+
+<h3>McLaren Artura</h3>
+
+<div class="price">$240,000</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ABOUT -->
+
+<section id="about" class="about-section">
+
+<div class="about-container">
+
+
+<div class="about-text">
+
+<h2>About Supercars Gallery</h2>
+
+<p>
+Supercars Gallery is a curated showcase of the world's most
+extraordinary high-performance vehicles. From cutting-edge
+hybrid hypercars to legendary track machines.
+</p>
+
+<p>
+Our mission is to give enthusiasts an immersive experience
+into the luxury and performance of iconic brands including
+Ferrari, Lamborghini, Porsche, and McLaren.
+</p>
+
+
+<div class="about-stats">
+
+<div class="stat">
+<h3>50+</h3>
+<p>Luxury Models</p>
+</div>
+
+<div class="stat">
+<h3>10+</h3>
+<p>Global Brands</p>
+</div>
+
+<div class="stat">
+<h3>1M+</h3>
+<p>Visitors</p>
+</div>
+
+</div>
+
+</div>
+<div class="about-image">
+
+<img src="https://images.unsplash.com/photo-1542367597-8849eb950fd8?auto=format&fit=crop&w=900&q=80">
+
+</div>
+
+</div>
+
+</section>
+<!-- CONTACT -->
+
+<section id="contact" class="contact-section">
+
+<h2>Contact Us</h2>
+
+<div class="contact-container">
+
+
+<div class="contact-info">
+
+<h3>Get In Touch</h3>
+
+<p>
+Have questions, suggestions, or partnership inquiries?
+Reach out and we’ll respond as soon as possible.
+</p>
+<p><i class="fas fa-map-marker-alt"></i> Monaco, Monte Carlo</p>
+<p><i class="fas fa-phone"></i> +1 234 567 890</p>
+<p><i class="fas fa-envelope"></i> contact@supercars.com</p>
+</div>
+<form class="contact-form">
+
+<input type="text" placeholder="Full Name" required>
+
+<input type="email" placeholder="Email Address" required>
+<textarea placeholder="Your Message" rows="5"></textarea>
+
+<button class="btn-primary">Send Message</button>
+</form>
+</div>
+</section>
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+
+<div class="footer-brand">
+
+<h2><span>SUPERCARS</span> GALLERY</h2>
+
+<p>
+Experience the world of elite performance machines.
+Discover iconic supercars from Ferrari, Lamborghini,
+Porsche, and McLaren.
+</p>
+</div>
+<div class="footer-links">
+
+<h3>Quick Links</h3>
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+</div>
+<div class="footer-social">
+
+<h3>Follow Us</h3>
+
+<div class="social-icons">
+
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+
+</div>
+</div>
+</div>
+
+<div class="footer-bottom">
+
+<p>© 2026 Supercars Gallery. All rights reserved.</p>
+</div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
