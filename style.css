@@ -210,25 +210,61 @@
           font-size: 14px;
       }
   }
-  /* =========================================
-     HERO SECTION - RESPONSIVE
-  ========================================= */
-  .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10%;
-      perspective: 1500px;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-          url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1920');
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      overflow: hidden;
-      flex-wrap: wrap; /* allows elements to wrap on small screens */
-  }
-  
+  /* Mobile Logo Scaling */
+@media screen and (max-width: 768px) {
+    .navbar .logo {
+        font-size: 1.2rem !important; /* Adjusts the text size */
+        letter-spacing: 1px;
+    }
+
+    /* If your logo is an image instead of text, use this: */
+    .navbar .logo img {
+        height: 30px !important; 
+        width: auto;
+    }
+
+    /* Reduce navbar padding to save even more space */
+    .navbar {
+        padding: 1rem 5% !important;
+    }
+}
+/* =========================================
+   HERO SECTION - UPDATED SPACING
+========================================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Default for mobile/tablet */
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 160px 10% 40px; /* 160px top padding creates space from Nav */
+    perspective: 1500px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1920');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* PC ONLY: SIDE-BY-SIDE ALIGNMENT */
+@media screen and (min-width: 1025px) {
+    .hero {
+        flex-direction: row; /* Back to side-by-side */
+        justify-content: space-between; 
+        align-items: center;
+        padding-top: 80px; /* Slightly less on PC as items center vertically */
+    }
+
+    .hero-content {
+        margin-top: 0;
+        text-align: left;
+    }
+
+    .tilt-card-container {
+        margin-top: 20px; /* Adjusts the card's vertical position relative to text */
+    }
+}  
   .hero-content {
       max-width: 500px;
       position: relative;
@@ -237,11 +273,14 @@
   
   /* Hero text */
   .hero-content h1 {
-      font-size: 3.2rem;
-      line-height: 1.3;
-      margin-bottom: 1rem;
+    font-family: 'Oswald', sans-serif; /* Tall, Bold, and Aggressive */
+    font-size: 3rem;
+    line-height: 1.5;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+
   }
-  
   .hero-content p {
       color: #ccc;
       margin-bottom: 2rem;
@@ -323,6 +362,42 @@
           font-size: 0.95rem;
       }
   }
+  /* 1. The Pulse Animation */
+@keyframes buttonPulse {
+    0% {
+        box-shadow: 0 0 0 0px rgba(161, 31, 161, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(161, 31, 161, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0px rgba(161, 31, 161, 0);
+    }
+}
+
+/* 2. Apply to the Button */
+.btn-primary {
+    position: relative;
+    background: rgb(41, 11, 41);
+    color: white;
+    padding: 10px 20px; /* Slightly larger for a premium feel */
+    border: 2px solid #a11fa1;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* The Glow Animation */
+    animation: buttonPulse 2s infinite;
+}
+
+.btn-primary:hover {
+    background: #a11fa1;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 25px #a11fa1;
+}
   
   /* Mobile */
   @media screen and (max-width: 768px) {
@@ -406,6 +481,35 @@
       border-radius: 10px;
   }
   
+  /* 1. Define the floating animation */
+@keyframes levitate {
+    0% {
+        transform: translateY(0px) rotateY(-15deg) rotateX(5deg); /* Match your current resting angle */
+    }
+    50% {
+        transform: translateY(-20px) rotateY(-15deg) rotateX(5deg); /* Float UP by 20px */
+    }
+    100% {
+        transform: translateY(0px) rotateY(-15deg) rotateX(5deg); /* Back to resting */
+    }
+}
+
+/* 2. Apply the animation to the card container */
+.tilt-card-container {
+    perspective: 1500px;
+    margin-right: -5%; /* Keep your spacing adjustment */
+    
+    /* ADD THIS PART HERE */
+    animation: levitate 6s ease-in-out infinite;
+    transition: transform 0.1s ease; /* Keeps mouse interactivity smooth */
+}
+
+/* 3. OPTIONAL: Slow down or pause on mouse hover */
+.tilt-card-container:hover {
+    animation-play-state: paused;
+}
+
+
   /* =========================================
      RESPONSIVE ADJUSTMENTS
   ========================================= */
@@ -421,31 +525,35 @@
       }
   }
   
-  /* Shine effect */
-  .tilt-card::before {
-      content:"";
-      position:absolute;
-      top:0;
-      left:-75%;
-      width:50%;
-      height:100%;
-      background:linear-gradient(
-          120deg,
-          transparent,
-          rgba(255,255,255,0.6),
-          transparent
-      );
-  }
-  
-  .tilt-card:hover::before {
-      animation: shineMove 1s;
-  }
-  
-  @keyframes shineMove {
-      0% { left: -75%; }
-      100% { left: 125%; }
-  }
-  
+/* Bold High-Intensity Shine Effect */
+.tilt-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start further back for a faster "swipe" */
+    width: 100%;  /* Increased width for a thicker light bar */
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.9) 50%, /* Much bolder white (0.9 opacity) */
+        transparent 75%
+    );
+    z-index: 2; /* Ensures it stays on top of the car image */
+    pointer-events: none; /* User can still click the card through the shine */
+}
+
+/* Faster, punchier animation */
+.tilt-card:hover::before {
+    animation: shineMove 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes shineMove {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+
   /* 3D tilt for car cards */
   .car-card {
     perspective: 1000px;
@@ -509,6 +617,31 @@
         height: 180px;
     }
 }
+/* FORCE CENTER ON MOBILE & TABLETS */
+@media screen and (max-width: 1024px) {
+    .hero {
+        display: flex !important;
+        flex-direction: column !important; /* Stacks text on top of card */
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding-top: 100px !important;
+    }
+
+    .tilt-card-container {
+        margin: 2rem auto !important; /* Forces horizontal centering */
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin-right: 0 !important; /* Removes the PC right-side push */
+    }
+
+    /* Adjust the animation for mobile so it doesn't tilt off-screen */
+    @keyframes levitate {
+        0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+        50% { transform: translateY(-15px) rotateX(0deg) rotateY(0deg); }
+    }
+}
 
 /* Small phones (480px and down) - Single column is best for detail */
 @media screen and (max-width: 480px) {
@@ -522,6 +655,27 @@
     }
 }
 
+/* PC Only: Push 3D card to the far right */
+@media screen and (min-width: 1025px) {
+    .hero {
+        display: flex;
+        justify-content: space-between; /* Pushes content to opposite ends */
+        align-items: center;
+        padding: 0 5%; /* Adds a small margin from the screen edges */
+    }
+
+    .tilt-card-container {
+        margin: 0; /* Removes centering margins */
+        flex: 1;
+        display: flex;
+        justify-content: flex-end; /* Aligns the card to the right side of its box */
+    }
+
+    .hero-content {
+        flex: 1;
+        text-align: left;
+    }
+}
 
 /* =========================================
      GALLERY SECTION
@@ -1129,31 +1283,28 @@
       opacity:1;
       transform:translateY(0);
   }
-  
-  /* FORCE RESET FOR HERO SECTION */
-#home.hero {
-    height: auto !important;
-    min-height: 100vh !important;
-    display: flex !important;
-    flex-direction: column !important; /* Forces vertical stacking */
-    padding-top: 160px !important;    /* Forces text down from the navbar */
-    overflow: visible !important;      /* Ensures nothing is clipped */
-}
-
-.hero-content {
-    margin-bottom: 40px !important;
-    position: relative !important;
-    z-index: 10 !important;
-}
-
+  /* FORCE GAP BETWEEN NAVBAR AND HERO CONTENT (PC ONLY) */
 @media screen and (min-width: 1025px) {
     #home.hero {
-        flex-direction: row !important; /* Returns to side-by-side on PC */
-        padding-top: 0 !important;
+        padding-top: 120px !important; /* Creates a 120px safety gap from the navbar */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        min-height: 100vh !important;
+    }
+
+    .tilt-card-container {
+        margin-top: 40px !important; /* Specifically pushes the card down further if needed */
+        margin-right: 5% !important; /* Keeps it away from the right edge */
     }
 }
 
-/* Ensure the background image doesn't disappear */
-.hero::before {
-    display: none !important; /* Removes any conflicting glow that might block text */
+/* Floating Animation with specific PC angle */
+@keyframes levitate {
+    0%, 100% { transform: translateY(0) rotateY(-15deg); }
+    50% { transform: translateY(-25px) rotateY(-15deg); }
+}
+
+.tilt-card-container {
+    animation: levitate 5s ease-in-out infinite !important;
 }
