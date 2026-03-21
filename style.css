@@ -50,14 +50,11 @@ body.light-mode::before {
 /* =========================================
 NAVBAR
 ========================================= */
-.navbar, 
 .navbar nav, 
 .navbar ul, 
 .navbar li {
     background-color: transparent !important;
     background: none !important;
-    border: none !important;
-    box-shadow: none !important;
 }
 
 body.light-mode .navbar nav ul li a {
@@ -78,10 +75,6 @@ body.light-mode .navbar {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-body.light-mode nav {
-    background-color: #ffffff;
-}
-
 body.light-mode .navbar {
     background-color: rgba(255, 255, 255, 0.05) !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -100,6 +93,18 @@ body.light-mode .navbar nav ul li a {
 @media (max-width: 768px) {
     body.light-mode nav.active {
         background-color: #ffffff !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav.active ul {
+        display: flex !important;
+
+        background: rgba(0, 0, 0, 0.8) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        border-radius: 15px;
     }
 }
 
@@ -322,12 +327,7 @@ THEME TOGGLE
     }
 
     /* Ensure the icon doesn't shift when the mobile menu opens */
-    .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 15px 5%;
-    }
+
 }
 
 /* Small phone adjustment */
@@ -400,38 +400,56 @@ OTHER COMPONENTS
     }
 
 }
-/* ===============================
-   MOBILE NAV DROPDOWN CENTERED
-================================= */
+
+
+/* =========================================
+   FINAL MASTER MOBILE MENU (THE FIX)
+   ========================================= */
 @media screen and (max-width: 768px) {
+    /* The Box: Floating, Centered, Black Blur */
     nav ul {
-        display: none; /* hidden by default */
+        display: none; 
         flex-direction: column;
-        gap: 0.8rem;               /* smaller spacing between items */
-        text-align: center;
-        background: rgba(10, 10, 10, 0.95);
-        padding: 0.5rem 1rem;      /* smaller padding */
-        border-radius: 8px;
-        width: max-content;         /* shrink to content width */
-        min-width: 150px;           /* optional: minimum width */
-        position: absolute;         /* allows free positioning */
-        top: 60px;                  /* just below navbar */
-        left: 50%;                  /* start from center */
-        transform: translateX(-50%); /* shift left by half its width to center */
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        z-index: 999;               /* above other content */
+        align-items: center;
+        gap: 1.5rem;
+        
+        /* Visuals */
+        background: rgba(0, 0, 0, 0.85) !important; 
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        
+        /* Positioning */
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        padding: 30px 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 2000;
     }
 
+    /* Trigger */
     nav.active ul {
-        display: flex;
+        display: flex !important;
     }
 
+    /* Links */
     nav ul li a {
-        padding: 8px 12px;          /* smaller button-like links */
-        font-size: 0.95rem;
+        color: #ffffff !important;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    /* Kill the underline effect on mobile for a cleaner box */
+    nav ul li a::after {
+        display: none !important;
     }
 }
-  .logo {
+
+.logo {
       font-weight: bold;
       letter-spacing: 1px;
       font-size: 30px;
