@@ -45,56 +45,73 @@ navLinks.forEach(link => {
 });
 
 // ===============================
-// 2. HERO CARD 3D TILT
+// 2. HERO CARD 3D TILT - TIGHT HITBOX
 // ===============================
 const heroCard = document.getElementById('heroCard');
-const heroContainer = document.querySelector('.tilt-card-container');
 
-if(heroCard && heroContainer){
-    heroContainer.addEventListener('mousemove', (e) => {
-        const rect = heroContainer.getBoundingClientRect();
+if(heroCard){
+    // Listen directly on the card, not the empty space around it
+    heroCard.addEventListener('mousemove', (e) => {
+        // Stop the CSS float so it doesn't fight the mouse
+        heroCard.style.animation = 'none'; 
+
+        const rect = heroCard.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
-        const rotateX = ((y - centerY) / centerY) * 10;
-        const rotateY = ((x - centerX) / centerX) * 10;
+        // Limits the tilt so it stays classy
+        const rotateX = ((y - centerY) / centerY) * 15;
+        const rotateY = ((x - centerX) / centerX) * 15;
 
-        heroCard.style.transform = `
-            rotateX(${-rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale(1.05)
-        `;
+        heroCard.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
     });
 
-    heroContainer.addEventListener('mouseleave', () => {
-        heroCard.style.transition = "all 0.6s ease";
+    heroCard.addEventListener('mouseleave', () => {
+        // Bring back the floating animation when the mouse leaves
+        heroCard.style.transition = "transform 0.6s ease";
         heroCard.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+        
+        // Restart the CSS float after a tiny delay to keep it smooth
+        setTimeout(() => {
+            heroCard.style.animation = 'levitate 6s ease-in-out infinite';
+        }, 600);
     });
 }
-
 // ===============================
-// 3. GALLERY FILTERING
+// 3. SMART GALLERY FILTERING
 // ===============================
 const filterButtons = document.querySelectorAll('.filter-btn');
 const carCards = document.querySelectorAll('.car-card');
+const noResults = document.getElementById('no-results');
 
 filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        const filter = btn.dataset.filter;
+        const filter = btn.dataset.filter.toLowerCase();
+        let visibleCount = 0; // Track if any cars match
+
         carCards.forEach(card => {
-            const brand = card.dataset.brand;
+            const brand = card.dataset.brand.toLowerCase();
+
             if (filter === 'all' || brand === filter) {
-                card.classList.remove('hide');
+                card.style.display = "block";
+                visibleCount++;
             } else {
-                card.classList.add('hide');
+                card.style.display = "none";
             }
         });
+
+        // Show "No Results" message if visibleCount is 0
+        if (visibleCount === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+        }
     });
 });
 
@@ -115,3 +132,89 @@ function revealElements(){
 
 window.addEventListener("scroll", revealElements);
 revealElements(); // run once on load
+
+// ===============================
+// 5. CONTACT FORM VALIDATION (Pure JS)
+// ===============================
+const contactForm = document.getElementById('contactForm');
+const successMsg = document.getElementById('form-success');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+        let isValid = true;
+
+        // 1. Clear previous errors
+        document.querySelectorAll('.error-text').forEach(el => el.remove());
+        [name, email, message].forEach(el => el.style.borderColor = "rgba(255,255,255,0.2)");
+
+        // 2. Validation Checks
+        if (name.value.trim().length < 3) {
+            showValidation(name, "Please provide your name (min 3 chars).");
+            isValid = false;
+        }
+
+        if (!email.value.includes('@') || !email.value.includes('.')) {
+            showValidation(email, "Please provide a valid email.");
+            isValid = false;
+        }
+
+        if (message.value.trim().length < 5) {
+            showValidation(message, "Please enter a message (min 5 chars).");
+            isValid = false;
+        }
+
+        // 3. Success Notification
+        if (isValid) {
+            successMsg.style.display = "flex";
+            contactForm.reset();
+            // Hide after 4 seconds
+            setTimeout(() => { successMsg.style.display = "none"; }, 4000);
+        }
+    });
+}
+
+function showValidation(input, message) {
+    // Change border to red
+    input.style.borderColor = "#ff4d4d";
+    
+    // Create error text element
+    const error = document.createElement('div');
+    error.className = 'error-text';
+    error.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    error.style.color = "#ff4d4d";
+    error.style.fontSize = "0.85rem";
+    error.style.marginTop = "5px";
+    
+    // Insert after input
+    input.after(error);
+}
+// ===============================
+// 6. CLEAN THEME TOGGLE LOGIC
+// ===============================
+const themeToggle = document.getElementById('themeToggle');
+const icon = themeToggle.querySelector('i');
+const bodyEl = document.body;
+
+themeToggle.addEventListener('click', () => {
+    bodyEl.classList.toggle('light-mode');
+    
+    if (bodyEl.classList.contains('light-mode')) {
+        // Switch to SUN (Light Mode)
+        icon.classList.replace('fa-moon', 'fa-sun');
+        icon.classList.add('animate-sun');
+        
+        // Remove class after animation finishes so it can re-run
+        setTimeout(() => icon.classList.remove('animate-sun'), 600);
+    } else {
+        // Switch to MOON (Dark Mode)
+        icon.classList.replace('fa-sun', 'fa-moon');
+        icon.classList.add('animate-moon');
+        
+        setTimeout(() => icon.classList.remove('animate-moon'), 600);
+    }
+});
