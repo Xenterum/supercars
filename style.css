@@ -1,9 +1,11 @@
 /* =========================================
-ROOT VARIABLES & THEMES (CLEAN)
+ROOT VARIABLES & THEMES
 ========================================= */
 :root {
+    /* Colors */
     --primary: #7520bb;
 
+    /* Theme */
     --main-bg: #000000;
     --main-text: #ffffff;
 }
@@ -12,7 +14,6 @@ body.light-mode {
     --main-bg: #ffffff;
     --main-text: #000000;
 }
-
 /* =========================================
 GLOBAL RESET & BASE
 ========================================= */
@@ -20,10 +21,10 @@ GLOBAL RESET & BASE
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Orbitron', 'Montserrat', sans-serif;
 }
 
 body {
+    font-family: 'Orbitron', 'Montserrat', sans-serif;
     background-color: var(--main-bg);
     color: var(--main-text);
     overflow-x: hidden;
@@ -48,59 +49,127 @@ body.light-mode::before {
 }
 
 /* =========================================
-NAVBAR
+NAVBAR (GLASS STYLE + LIGHT MODE + RESPONSIVE)
 ========================================= */
-.navbar nav, 
-.navbar ul, 
+
+/* Reset unwanted backgrounds */
+.navbar nav,
+.navbar ul,
 .navbar li {
-    background-color: transparent !important;
-    background: none !important;
+    background-color: transparent;
+}
+/* =========================================
+BASE NAVBAR
+========================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 3%;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    flex-wrap: wrap;
 }
 
+/* Logo */
+.logo {
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+.logo span {
+    color: rgb(161, 31, 161);
+}
+
+/* Navigation list */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+/* Nav links */
+nav ul li a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+/* Underline effect */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 3px;
+    background: var(--primary);
+    transition: 0.3s;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    color: var(--primary);
+}
+
+/* =========================================
+HAMBURGER
+========================================= */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+/* =========================================
+LIGHT MODE
+========================================= */
+/* Links */
 body.light-mode .navbar nav ul li a {
-    color: #333333 !important;
+    color: #686161; 
     font-weight: 600;
+    background: transparent;
 }
 
 body.light-mode .navbar nav ul li a.active {
-    color: var(--primary) !important;
+    color: var(--primary);
 }
 
+/* Hamburger */
 body.light-mode .hamburger {
-    color: #000000 !important;
+    color: #000000;
 }
 
+/* Navbar */
 body.light-mode .navbar {
-    background-color: rgba(255, 255, 255, 0.95) !important;
+    background-color: rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-body.light-mode .navbar {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .navbar nav ul li {
-    background: transparent !important;
-}
-
-body.light-mode .navbar nav ul li a {
-    color: #686161 !important; 
-    font-weight: 600;
-    background: transparent !important;
-}
-
+/* Mobile */
 @media (max-width: 768px) {
+
     body.light-mode nav.active {
-        background-color: #ffffff !important;
+        background-color: #ffffff;
     }
-}
 
-@media screen and (max-width: 768px) {
     nav.active ul {
-        display: flex !important;
+        display: flex;
 
-        background: rgba(0, 0, 0, 0.8) !important;
+        background: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
 
@@ -109,622 +178,165 @@ body.light-mode .navbar nav ul li a {
 }
 
 /* =========================================
-HERO SECTION
+MOBILE MENU (CLEAN + FULL RESPONSIVE)
 ========================================= */
-.hero-content h1, 
-.hero-content p, 
-.hero-content .highlight,
-.hero-section h1,
-.hero-section p {
-    color: #ffffff !important;
-    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
-}
-
-.hero-content .btn-primary:hover {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-}
-
-/* =========================================
-ABOUT SECTION
-========================================= */
-.about-container {
-    background-color: transparent !important;
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.about-text h2, .about-text p, .stat h3, .stat p {
-    color: var(--main-text);
-    transition: color 0.3s ease;
-}
-
-body.light-mode .about-text p, 
-body.light-mode .about-text .stat p {
-    color: #333333;
-}
-
-body.light-mode .about-image img {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* =========================================
-FILTER BUTTONS
-========================================= */
-.filter-btn {
-    padding: 10px 25px;
-    border-radius: 30px;
-    background: transparent;
-    border: 1px solid var(--main-text);
-    color: var(--main-text);
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.filter-btn:hover {
-    transform: scale(1.1); 
-    box-shadow: 0 0 15px rgba(117, 32, 187, 0.4);
-    border-color: var(--primary);
-}
-
-.filter-btn.active {
-    background-color: var(--primary);
-    border-color: var(--primary);
-    color: white;
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(117, 32, 187, 0.3);
-}
-
-.filter-btn:active {
-    transform: scale(0.95);
-}
-
-.filter-btn {
-    background: transparent;
-    border: 1px solid var(--main-text); 
-    color: var(--main-text);
-    padding: 0.6rem 1.5rem;
-    cursor: pointer;
-    border-radius: 25px;
-    font-size: 0.8rem; 
-    text-transform: uppercase;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-body.light-mode .filter-btn {
-    border-color: #000000 !important;
-    color: #000000 !important;
-}
-
-.filter-btn.active{
-    background-color: var(--primary) !important;
-    border-color: var(--primary) !important;
-    color: #ffffff !important;
-    box-shadow: 0 5px 15px rgba(117, 32, 187, 0.3);
-}
-
-.filter-btn:hover {
-    border-color: var(--primary) !important;
-    color: #ffffff !important; 
-    background-color: transparent !important;
-    box-shadow: 0 0 20px rgba(117, 32, 187, 0.8), 
-                0 0 30px rgba(117, 32, 187, 0.4), 
-                inset 0 0 20px rgba(117, 32, 187, 0.2);
-    transform: translateY(-2px);
-}
-
-/* =========================================
-CONTACT SECTION
-========================================= */
-.contact-info {
-    background-color: transparent !important;
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-body.light-mode .contact-info h3, 
-body.light-mode .contact-info p {
-    color: #000000;
-}
-
-.contact-form input, 
-.contact-form textarea {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px;
-    padding: 15px;
-    color: #ffffff !important;
-    width: 100%;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-}
-
-body.light-mode .contact-form input, 
-body.light-mode .contact-form textarea {
-    background-color: #f9f9f9 !important;
-    border: 1px solid #dddddd !important;
-    color: #000000 !important;
-}
-
-.contact-form input:focus, 
-.contact-form textarea:focus {
-    outline: none;
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 10px rgba(117, 32, 187, 0.2);
-}
-
-.contact-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--main-text);
-}
-
-.contact-info h3, 
-.contact-info p,
-.contact-info i {
-    color: var(--main-text);
-}
-
-/* =========================================
-THEME TOGGLE
-========================================= */
-.theme-toggle {
-    cursor: pointer;
-    font-size: 1.8rem;
-    margin-left: 15px;
-    color: var(--main-text);
-    display: inline-block;
-    transition: color 0.3s ease;
-}
-
-.animate-sun {
-    animation: rotateSun 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.fa-sun {
-    color: #dddb6f !important;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-}
-
-.fa-moon {
-    color: #b0b0b0 !important;
-    filter: drop-shadow(0 0 5px rgba(176, 176, 176, 0.3));
-}
-
-@keyframes rotateSun {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.2); }
-    100% { transform: rotate(360deg) scale(1); }
-}
-
-.animate-moon {
-    animation: wobbleMoon 0.6s ease-in-out;
-}
-
-@keyframes wobbleMoon {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-15deg) scale(1.1); }
-    75% { transform: rotate(15deg) scale(1.1); }
-    100% { transform: rotate(0deg) scale(1); }
-}
-/* =========================================
-   RESPONSIVE THEME TOGGLE
-========================================= */
-
-@media (max-width: 768px) {
-    .theme-toggle {
-        font-size: 1.5rem; /* Scaled down for mobile screens */
-        margin-left: 10px;
-        order: 2; /* Positions it next to the hamburger if needed */
-    }
-
-    /* Ensure the icon doesn't shift when the mobile menu opens */
-
-}
-
-/* Small phone adjustment */
-@media (max-width: 480px) {
-    .theme-toggle {
-        font-size: 1.3rem;
-        margin-left: 8px;
-    }
-    
-    .logo {
-        font-size: 0.9rem; /* Keeps the logo and toggle on one line */
-    }
-}
-
-/* =========================================
-FOOTER
-========================================= */
-.footer h2, .footer h3, .footer p, .footer-links a, .footer-social i {
-    color: #ffffff !important;
-}
-
-.footer-links a:hover {
-    color: var(--primary) !important;
-}
-
-/* =========================================
-OTHER COMPONENTS
-========================================= */
-.car-card {
-    background-color: transparent !important;
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* =========================================
-     NAVBAR (GLASS STYLE) - RESPONSIVE
-  ========================================= */
-  
-  .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 3%;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--glass-border);
-      z-index: 1000;
-      flex-wrap: wrap; /* allows wrapping on small screens */
-  }
-  /* Hamburger hidden by default */
-  .hamburger {
-      display: none;
-      font-size: 28px;
-      color: white;
-  }
 @media (max-width: 768px) {
 
-    nav ul li {
-        margin: 1rem 0;
-        text-align: center;
+    /* Navbar spacing */
+    .navbar {
+        padding: 1rem 5%;
     }
 
+    /* Hamburger visible */
     .hamburger {
         display: block;
-        cursor: pointer;
     }
 
-}
+    /* Nav container */
+    nav {
+        width: 100%;
+        order: 2;
+        position: relative; /* ensures dropdown positions correctly */
+    }
 
-
-/* =========================================
-   FINAL MASTER MOBILE MENU (THE FIX)
-   ========================================= */
-@media screen and (max-width: 768px) {
-    /* The Box: Floating, Centered, Black Blur */
+    /* Dropdown menu */
     nav ul {
-        display: none; 
+        display: none;
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
-        
-        /* Visuals */
-        background: rgba(0, 0, 0, 0.85) !important; 
-        backdrop-filter: blur(15px) !important;
-        -webkit-backdrop-filter: blur(15px) !important;
-        
-        /* Positioning */
+
         position: absolute;
-        top: 80px;
+        top: 50px;
         left: 50%;
         transform: translateX(-50%);
-        width: 220px;
+
         padding: 30px 20px;
         border-radius: 15px;
+        width: 220px;
+        min-width: 140px;
+
+        /* ✅ Restored blur box properly */
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
         border: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 2000;
     }
 
-    /* Trigger */
+    /* Show menu */
     nav.active ul {
-        display: flex !important;
+        display: flex;
+    }
+
+    /* List items */
+    nav ul li {
+        margin: 0.5rem 0;
+        text-align: center;
     }
 
     /* Links */
     nav ul li a {
-        color: #ffffff !important;
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1rem;
         text-transform: uppercase;
     }
 
-    /* Kill the underline effect on mobile for a cleaner box */
-    nav ul li a::after {
-        display: none !important;
-    }
-}
 
-.logo {
-      font-weight: bold;
-      letter-spacing: 1px;
-      font-size: 30px;
-  }
-  
-  .logo span {
-      color: rgb(161, 31, 161);
-  }
-  
-  /* NAVIGATION LIST */
-  
-  nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 2rem;
-  }
-  
-  /* NAV LINKS */
-  
-  nav ul li a {
-      position: relative;
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      padding-bottom: 5px;
-  }
-  
-  /* PURPLE UNDERLINE EFFECT */
-  
-  nav ul li a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0%;
-      height: 3px;
-      background: purple;
-      transition: width 0.3s ease;
-  }
-  
-  /* HOVER ANIMATION */
-  
-  nav ul li a:hover::after {
-      width: 100%;
-  }
-  
-  /* ACTIVE PAGE */
-  
-  nav ul li a.active::after {
-      width: 100%;
-  }
-  
-  nav ul li a:hover {
-      color: purple;
-  }
-  
-  /* =========================
-     RESPONSIVE NAVBAR
-  ========================= */
-  @media screen and (max-width: 768px) {
-      .navbar {
-          padding: 20px 5%;
-      }
-  
-      nav {
-          width: 100%;
-          order: 2;
-      }
-  
-      nav ul {
-          flex-direction: column;
-          gap: 1rem;
-          display: none; /* hidden by default on mobile */
-          text-align: center;
-          background: rgba(10, 10, 10, 0.95);
-          padding: 15px 0;
-          border-radius: 10px;
-      }
-  
-      nav.active ul {
-          display: flex; /* show menu when active */
-      }
-  
-      .hamburger {
-          display: block;
-          font-size: 28px;
-          color: white;
-          cursor: pointer;
-          order: 1;
-      }
-  }
-  
-  @media screen and (max-width: 480px) {
-      .logo {
-          font-size: 22px;
-      }
-  
-      nav ul li a {
-          font-size: 14px;
-      }
-  }
-  /* Mobile Logo Scaling */
-@media screen and (max-width: 768px) {
+    /* Logo scaling */
     .navbar .logo {
-        font-size: 1.2rem !important; /* Adjusts the text size */
+        font-size: 1.2rem;
         letter-spacing: 1px;
     }
+}
 
-    /* If your logo is an image instead of text, use this: */
-    .navbar .logo img {
-        height: 30px !important; 
-        width: auto;
+/* =========================================
+EXTRA SMALL DEVICES
+========================================= */
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 22px;
     }
 
-    /* Reduce navbar padding to save even more space */
-    .navbar {
-        padding: 1rem 5% !important;
+    nav ul li a {
+        font-size: 14px;
     }
 }
+
 /* =========================================
-   HERO SECTION - UPDATED SPACING
-========================================= */
+   HERO SECTION - MASTER STYLES
+   ========================================= */
+
 .hero {
     min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Default for mobile/tablet */
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-start; 
-    padding: 160px 10% 40px; /* 160px top padding creates space from Nav */
+    justify-content: flex-start;
+    padding: 160px 10% 40px;
     perspective: 1500px;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url('Garage.jpg');
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('Garage.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
     overflow: hidden;
+    text-align: center; /* Default for mobile */
 }
 
-/* PC ONLY: SIDE-BY-SIDE ALIGNMENT */
-@media screen and (min-width: 1025px) {
-    .hero {
-        flex-direction: row; /* Back to side-by-side */
-        justify-content: space-between; 
-        align-items: center;
-        padding-top: 80px; /* Slightly less on PC as items center vertically */
-    }
+.hero-content {
+    max-width: 500px;
+    position: relative;
+    z-index: 2;
+}
 
-    .hero-content {
-        margin-top: 0;
-        text-align: left;
-    }
-
-    .tilt-card-container {
-        margin-top: 20px; /* Adjusts the card's vertical position relative to text */
-    }
-}  
-  .hero-content {
-      max-width: 500px;
-      position: relative;
-      z-index: 2;
-  }
-  
-  /* Hero text */
-  .hero-content h1 {
-    font-family: 'Oswald', sans-serif; /* Tall, Bold, and Aggressive */
+/* Typography & Glow */
+.hero-content h1 {
+    font-family: 'Oswald', sans-serif;
     font-size: 3rem;
     line-height: 1.5;
     letter-spacing: 3px;
     margin-bottom: 1rem;
     text-transform: uppercase;
-
-  }
-  .hero-content p {
-      color: #ccc;
-      margin-bottom: 2rem;
-  }
-  
-  /* Button */
-.btn-primary {
-    position: relative;
-    background: rgb(41, 11, 41);
-    color: white;
-    padding: 10px 20px; /* Slightly larger for a premium feel */
-    border: 2px solid #a11fa1;
-    border-radius: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    /* The Glow Animation */
-    animation: buttonPulse 2s infinite;
-}  
-  .btn-primary:hover {
-      background: rgb(189, 23, 189);
-      color: white;
-      transform: translateY(-3px);
-  }
-  
-  /* ===============================
-  HERO TEXT ANIMATION
-  ================================ */
-  .hero-content h1,
-  .hero-content p,
-  .hero-content .btn-primary {
-      opacity: 0;
-      transform: translateY(-40px);
-      animation: heroReveal 1s ease forwards;
-  }
-  
-  /* stagger timing */
-  .hero-content h1 {
-      animation-delay: 0.2s;
-  }
-  .hero-content p {
-      animation-delay: 0.6s;
-  }
-  .hero-content .btn-primary {
-      animation-delay: 1s;
-  }
-  
-  @keyframes heroReveal {
-      from {
-          opacity: 0;
-          transform: translateY(-40px);
-      }
-      to {
-          opacity: 1;
-          transform: translateY(0);
-      }
-  }
-  
-  /* =========================
-     RESPONSIVE QUERIES
-  ========================= */
-  
-  /* Tablets */
-  @media screen and (max-width: 1024px) {
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    padding:120px 10% 0 10%;
-}
-  
-      .hero-content h1 {
-          font-size: 2.8rem;
-      }
-  
-      .hero-content p {
-          font-size: 1.1rem;
-      }
-  
-      .btn-primary {
-          padding: 8px 18px;
-          font-size: 0.95rem;
-      }
-  }
-  /* 1. The Pulse Animation */
-@keyframes buttonPulse {
-    0% {
-        box-shadow: 0 0 0 0px rgba(161, 31, 161, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(161, 31, 161, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0px rgba(161, 31, 161, 0);
-    }
+    color: #ffffff;
+    text-shadow: 2px 2px 25px rgba(0, 0, 0, 0.6);
 }
 
-/* 2. Apply to the Button */
+.hero-content p {
+    color: #cccccc;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 25px rgba(0, 0, 0, 0.6);
+}
+
+.hero-content .highlight {
+    color: #ffffff;
+    text-shadow: 2px 2px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================
+   HERO ANIMATIONS
+   ========================================= */
+
+.hero-content h1,
+.hero-content p,
+.hero-content .btn-primary {
+    opacity: 0;
+    transform: translateY(-40px);
+    animation: heroReveal 1s ease forwards;
+}
+
+.hero-content h1 { animation-delay: 0.2s; }
+.hero-content p { animation-delay: 0.6s; }
+.hero-content .btn-primary { animation-delay: 1s; }
+
+@keyframes heroReveal {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   BUTTON STYLES
+   ========================================= */
+
 .btn-primary {
     position: relative;
     background: rgb(41, 11, 41);
@@ -747,152 +359,147 @@ OTHER COMPONENTS
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 0 25px #a11fa1;
 }
-  
-  /* Mobile */
-  @media screen and (max-width: 768px) {
-.hero {
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 120px 5% 40px 5%;
-    text-align: center;
-}
-  
-      .hero-content {
-          max-width: 100%;
-      }
-  
-      .hero-content h1 {
-          font-size: 2.2rem;
-      }
-  
-      .hero-content p {
-          font-size: 1rem;
-      }
-  
-      .btn-primary {
-          padding: 7px 16px;
-          font-size: 0.9rem;
-      }
-  }
-  
-  /* Small phones */
-  @media screen and (max-width: 480px) {
-      .hero-content h1 {
-          font-size: 1.8rem;
-      }
-  
-      .hero-content p {
-          font-size: 0.95rem;
-      }
-  
-      .btn-primary {
-          padding: 6px 14px;
-          font-size: 0.85rem;
-      }
-  }
-  /* =========================================
-     3D TILT CARD RESPONSIVE
-  ========================================= */
-  .tilt-card-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      perspective: 1500px;
-      margin: 2rem auto;
-      padding: 0 2%; /* prevents overflow */
-      max-width: 1200px; /* optional, keeps container neat on large screens */
-      box-sizing: border-box;
-  }
-  
-  /* Card sizing */
-  .tilt-card {
-      width: 100%;
-      max-width: 350px; /* original size for large screens */
-      aspect-ratio: 4/6; /* keeps proportional height automatically */
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.2s ease;
-      box-shadow:
-          0 50px 120px rgba(0,0,0,0.6),
-          0 0 60px rgba(110, 9, 168, 0.815);
-      border: 1px solid var(--glass-border);
-  }
-  
-  /* Image inside the card */
-  .tilt-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.9;
-      border-radius: 10px;
-  }
-  
-  /* 1. Define the floating animation */
-@keyframes levitate {
-    0% {
-        transform: translateY(0px) rotateY(-15deg) rotateX(5deg); /* Match your current resting angle */
-    }
-    50% {
-        transform: translateY(-20px) rotateY(-15deg) rotateX(5deg); /* Float UP by 20px */
-    }
-    100% {
-        transform: translateY(0px) rotateY(-15deg) rotateX(5deg); /* Back to resting */
-    }
+
+@keyframes buttonPulse {
+    0% { box-shadow: 0 0 0 0px rgba(161, 31, 161, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(161, 31, 161, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(161, 31, 161, 0); }
 }
 
-/* 2. Apply the animation to the card container */
+/* =========================================
+   RESPONSIVE QUERIES
+   ========================================= */
+
+/* PC Alignment (Side-by-Side) */
+@media screen and (min-width: 1025px) {
+    .hero {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 80px;
+        text-align: left;
+    }
+    .tilt-card-container { margin-top: 20px; }
+}
+/* Tablet & Mobile Scaling - PULLED UP SLIGHTLY */
+@media screen and (max-width: 1024px) {
+    /* Lowered from 180px to 150px to pull it up */
+    .hero { padding: 130px 10% 40px !important; } 
+    .hero-content h1 { font-size: 2.8rem; }
+}
+
+@media screen and (max-width: 768px) {
+    /* Lowered from 160px to 140px to pull it up */
+    .hero { padding: 120px 5% 40px !important; } 
+    .hero-content h1 { font-size: 2.2rem; }
+    .btn-primary { padding: 8px 16px; font-size: 0.9rem; }
+}
+
+@media screen and (max-width: 480px) {
+    /* Lowered to 130px for small phones */
+    .hero { padding: 110px 5% 40px !important; } 
+    .hero-content h1 { font-size: 1.8rem; }
+    .hero-content p { font-size: 0.95rem; }
+}/* =========================================
+3D TILT CARD RESPONSIVE
+========================================= */
+
 .tilt-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
     perspective: 1500px;
-    margin-right: -5%; /* Keep your spacing adjustment */
-    
-    /* ADD THIS PART HERE */
+    margin: 2rem auto;
+    padding: 0 2%;
+    max-width: 1200px;
+    box-sizing: border-box;
+
+    /* Levitate animation */
     animation: levitate 6s ease-in-out infinite;
-    transition: transform 0.1s ease; /* Keeps mouse interactivity smooth */
+    transition: transform 0.1s ease; /* Smooth interactivity */
 }
 
-/* 3. OPTIONAL: Slow down or pause on mouse hover */
+/* Pause animation on hover */
 .tilt-card-container:hover {
     animation-play-state: paused;
 }
 
+/* Individual card */
+.tilt-card {
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 4/6;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+    box-shadow:
+        0 50px 120px rgba(0,0,0,0.6),
+        0 0 60px rgba(110, 9, 168, 0.815);
+    border: 1px solid var(--glass-border);
+}
 
-  /* =========================================
-     RESPONSIVE ADJUSTMENTS
-  ========================================= */
-  @media (max-width: 768px) {
-      .tilt-card {
-          max-width: 280px;
-      }
-  }
-  
-  @media (max-width: 480px) {
-      .tilt-card {
-          max-width: 220px;
-      }
-  }
-  
+/* Card image */
+.tilt-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    border-radius: 10px;
+}
+
+/* Levitate keyframes */
+@keyframes levitate {
+    0% {
+        transform: translateY(0px) rotateY(-15deg) rotateX(5deg);
+    }
+    50% {
+        transform: translateY(-20px) rotateY(-15deg) rotateX(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotateY(-15deg) rotateX(5deg);
+    }
+}
+
+
+/* =========================================
+TILT & CAR CARD RESPONSIVE
+========================================= */
+
+/* Responsive tilt-card sizing */
+@media (max-width: 768px) {
+    .tilt-card {
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tilt-card {
+        max-width: 220px;
+    }
+}
+
 /* Bold High-Intensity Shine Effect */
 .tilt-card::before {
     content: "";
     position: absolute;
     top: 0;
-    left: -150%; /* Start further back for a faster "swipe" */
-    width: 100%;  /* Increased width for a thicker light bar */
+    left: -150%;
+    width: 100%;
     height: 100%;
     background: linear-gradient(
         120deg,
         transparent 25%,
-        rgba(255, 255, 255, 0.9) 50%, /* Much bolder white (0.9 opacity) */
+        rgba(255, 255, 255, 0.9) 50%,
         transparent 75%
     );
-    z-index: 2; /* Ensures it stays on top of the car image */
-    pointer-events: none; /* User can still click the card through the shine */
+    z-index: 2;
+    pointer-events: none;
 }
 
-/* Faster, punchier animation */
+/* Shine animation on hover */
 .tilt-card:hover::before {
     animation: shineMove 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -902,122 +509,57 @@ OTHER COMPONENTS
     100% { left: 150%; }
 }
 
-
-  /* 3D tilt for car cards */
-  .car-card {
+/* 3D tilt container for car cards */
+.car-card {
     perspective: 1000px;
     margin-bottom: 2rem;
-  }
-  
-/* Ensure all images are the same size and fit perfectly */
-.car-card img {
-    width: 100%;
-    height: 250px; /* Forces a consistent height for the 3x4 grid */
-    object-fit: cover; /* This is the magic: it crops instead of stretching */
-    border-radius: 12px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    filter: grayscale(20%); /* Optional: gives a sleek, uniform look */
 }
 
-/* Hover Effect: Zoom and Purple Glow */
+/* Car images: consistent size & fit */
+.car-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    filter: grayscale(20%);
+}
+
+/* Hover effect: zoom + purple glow */
 .car-card:hover img {
-    transform: scale(1.05); /* Subtle zoom in */
-    filter: grayscale(0%); /* Brings back full color on hover */
-    box-shadow: 0 10px 30px rgba(117, 32, 187, 0.6); /* Matches your --primary purple */
+    transform: scale(1.05);
+    filter: grayscale(0%);
+    box-shadow: 0 10px 30px rgba(117, 32, 187, 0.6);
     cursor: pointer;
 }
 
-/* Optional: Smoothly lift the text container too */
+/* Smooth lift for car info text */
 .car-info {
     transition: transform 0.4s ease;
 }
 
 .car-card:hover .car-info {
     transform: translateY(-5px);
-}  
+}
+
 /* =========================================
-   CAR GRID & CARD RESPONSIVENESS
+CAR GRID & CARD RESPONSIVENESS
 ========================================= */
 
-/* Tablets (1024px and down) - Switch to 2 columns */
-@media screen and (max-width: 1024px) {
-    .car-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-    
-    .car-card img {
-        height: 220px; /* Slightly shorter for tablet spacing */
-    }
-}
-
-/* Mobile (768px and down) - Stay at 2 columns or drop to 1 */
-@media screen and (max-width: 768px) {
-    .gallery-section {
-        padding: 4rem 5%;
-    }
-
-    .car-grid {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 1rem;
-    }
-
-    .car-card img {
-        height: 180px;
-    }
-}
-/* FORCE CENTER ON MOBILE & TABLETS */
-@media screen and (max-width: 1024px) {
-    .hero {
-        display: flex !important;
-        flex-direction: column !important; /* Stacks text on top of card */
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-        padding-top: 100px !important;
-    }
-
-    .tilt-card-container {
-        margin: 2rem auto !important; /* Forces horizontal centering */
-        display: flex !important;
-        justify-content: center !important;
-        width: 100% !important;
-        margin-right: 0 !important; /* Removes the PC right-side push */
-    }
-
-    /* Adjust the animation for mobile so it doesn't tilt off-screen */
-    @keyframes levitate {
-        0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
-        50% { transform: translateY(-15px) rotateX(0deg) rotateY(0deg); }
-    }
-}
-
-/* Small phones (480px and down) - Single column is best for detail */
-@media screen and (max-width: 480px) {
-    .car-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .car-card img {
-        height: 240px; /* Taller again since it's full width */
-    }
-}
-
-/* PC Only: Push 3D card to the far right */
+/* PC Only (min-width: 1025px) */
 @media screen and (min-width: 1025px) {
     .hero {
         display: flex;
-        justify-content: space-between; /* Pushes content to opposite ends */
+        justify-content: space-between;
         align-items: center;
-        padding: 0 5%; /* Adds a small margin from the screen edges */
+        padding: 0 5%;
     }
 
     .tilt-card-container {
-        margin: 0; /* Removes centering margins */
+        margin: 0;
         flex: 1;
         display: flex;
-        justify-content: flex-end; /* Aligns the card to the right side of its box */
+        justify-content: flex-end;
     }
 
     .hero-content {
@@ -1026,314 +568,521 @@ OTHER COMPONENTS
     }
 }
 
-/* =========================================
-     GALLERY SECTION
-  ========================================= */
-  .gallery-section {
-      padding: 6rem 10%;
-  }
+/* Tablets (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .hero {
+        display: flex;
+        flex-direction: column; /* Stacks text on top of card */
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 100px;
+    }
 
-  .car-grid {
+    .tilt-card-container {
+        margin: 2rem auto;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Levitate animation adjustment for mobile/tablets */
+    @keyframes levitate {
+        0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+        50% { transform: translateY(-15px) rotateX(0deg) rotateY(0deg); }
+    }
+
+    /* Car grid: 2 columns */
+    .car-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .car-card img {
+        height: 220px;
+    }
+}
+
+/* Mobile (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .gallery-section {
+        padding: 4rem 5%;
+    }
+
+    .car-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .car-card img {
+        height: 180px;
+    }
+}
+
+/* Small phones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .car-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .car-card img {
+        height: 240px;
+    }
+}
+
+/* =========================================
+GALLERY SECTION
+========================================= */
+
+.gallery-section {
+    padding: 6rem 10%;
+}
+
+.gallery-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Filter bar */
+.filter-bar {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Filter buttons */
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary);
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Hide helper class */
+.hide {
+    display: none;
+}
+
+/* Car grid */
+.car-grid {
     display: grid;
-    /* This creates 3 equal-width columns */
     grid-template-columns: repeat(3, 1fr); 
     gap: 2rem;
     width: 100%;
     margin-top: 2rem;
 }
 
-/* Responsive adjustment: 2 columns for tablets */
+/* Responsive adjustments */
 @media screen and (max-width: 1024px) {
     .car-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Responsive adjustment: 1 column for phones */
 @media screen and (max-width: 600px) {
     .car-grid {
         grid-template-columns: 1fr;
     }
 }
-  .gallery-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-  }
-  
-  .filter-bar {
-      margin-bottom: 2rem;
-      display: flex;
-      gap: 1rem;
-  }
-  
-  .filter-btn {
-      background: transparent;
-      border: 1px solid var(--glass-border);
-      color: white;
-      padding: 0.6rem 1.5rem;
-      cursor: pointer;
-      border-radius: 25px;
-      transition: 0.3s ease;
-  }
-  
-  .filter-btn:hover {
-      border-color: var(--primary);
-  }
-  
-  .filter-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-  }
-  .hide {
-    display: none;
+
+/* =========================================
+GALLERY SECTION - RESPONSIVE TWEAKS
+========================================= */
+
+/* Center heading on smaller screens */
+.gallery-section h2 {
+    text-align: center;
 }
-  /* =========================================
-     GALLERY SECTION - RESPONSIVE
-  ========================================= */
-  
-  .gallery-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center; /* center on smaller screens */
-  }
-  
-  .filter-bar {
-      margin-bottom: 2rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap; /* wrap buttons on small screens */
-      justify-content: center; /* center buttons */
-  }
-  
-  .filter-btn {
-      background: transparent;
-      border: 1px solid var(--glass-border);
-      color: white;
-      padding: 0.6rem 1.5rem;
-      cursor: pointer;
-      border-radius: 25px;
-      transition: 0.3s ease;
-  }
-  
-  .filter-btn:hover {
-      border-color: var(--primary);
-  }
-  
-  .filter-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-  }
-  
-  /* ===============================
-     RESPONSIVE QUERIES
-  =============================== */
-  
-  /* Tablets */
-  @media screen and (max-width: 1024px) {
-      .gallery-section {
-          padding: 5rem 8%;
-      }
-  
-      .gallery-section h2 {
-          font-size: 2.2rem;
-      }
-  
-      .filter-btn {
-          padding: 0.5rem 1.3rem;
-      }
-  }
-  
-  /* Mobile */
-  @media screen and (max-width: 768px) {
-      .gallery-section {
-          padding: 4rem 5%;
-      }
-  
-      .gallery-section h2 {
-          font-size: 2rem;
-      }
-  
-      .filter-btn {
-          padding: 0.5rem 1rem;
-          font-size: 0.9rem;
-      }
-  }
-  
-  /* Small phones */
-  @media screen and (max-width: 480px) {
-      .gallery-section {
-          padding: 3rem 3%;
-      }
-  
-      .gallery-section h2 {
-          font-size: 1.8rem;
-      }
-  
-      .filter-btn {
-          padding: 0.4rem 0.8rem;
-          font-size: 0.85rem;
-      }
-  }
-  
-  /* =========================================
-     ABOUT SECTION - RESPONSIVE
-  ========================================= */
-  
-  .about-section {
-      padding: 6rem 10%;
-  }
-  
-  .about-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-  }
-  
-  .about-text h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-  }
-  
-  .about-text p {
-      color: #ccc;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-  }
-  
-  .about-image img {
-      width: 100%;
-      border-radius: 15px;
-  }
-  
-  .about-stats {
-      display: flex;
-      gap: 2rem;
-      margin-top: 2rem;
-  }
-  
-  .stat h3 {
-      color: var(--primary);
-      font-size: 1.8rem;
-  }
-  
-  /* ===============================
-     RESPONSIVE QUERIES
-  =============================== */
-  
-  /* Tablets */
-  @media screen and (max-width: 1024px) {
-      .about-section {
-          padding: 5rem 8%;
-      }
-  
-      .about-text h2 {
-          font-size: 2.2rem;
-      }
-  
-      .stat h3 {
-          font-size: 1.6rem;
-      }
-  
-      .about-stats {
-          gap: 1.5rem;
-      }
-  }
-  
-  /* Mobile */
-  @media screen and (max-width: 768px) {
-      .about-container {
-          grid-template-columns: 1fr; /* stack text and image */
-          gap: 2rem;
-      }
-  
-      .about-section {
-          padding: 4rem 5%;
-      }
-  
-      .about-text h2 {
-          font-size: 2rem;
-      }
-  
-      .about-stats {
-          flex-direction: column; /* stack stats vertically */
-          gap: 1rem;
-      }
-  
-      .stat h3 {
-          font-size: 1.5rem;
-      }
-  }
-  
-  /* Small phones */
-  @media screen and (max-width: 480px) {
-      .about-section {
-          padding: 3rem 3%;
-      }
-  
-      .about-text h2 {
-          font-size: 1.8rem;
-      }
-  
-      .about-text p {
-          font-size: 0.9rem;
-      }
-  
-      .stat h3 {
-          font-size: 1.3rem;
-      }
-  }
-  
-  
-  /* =========================================
-     CONTACT SECTION - RESPONSIVE
-  ========================================= */
-  
-  .contact-section {
-      padding: 6rem 10%;
-  }
-  
-  .contact-section h2 {
-      text-align: center;
-      margin-bottom: 3rem;
-      font-size: 2.5rem;
-  }
-  
-  .contact-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-  }
-  
-  .contact-info p {
-      color: #ccc;
-      margin: 0.8rem 0;
-  }
-  
-  .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-  }
-  
-  .contact-form input,
-  .contact-form textarea {
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--glass-border);
-      background: var(--card-bg);
-      color: white;
-      width: 100%;
-      font-size: 1rem;
-  }
-  
-  .contact-form button {
-      width: 180px;
-      padding: 10px 15px;
-      cursor: pointer;
-      font-weight: bold;
-  }
-  .success-popup {
+
+/* Wrap filter buttons and center them */
+.filter-bar {
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+/* =========================================
+GALLERY SECTION - RESPONSIVE QUERIES
+========================================= */
+
+/* Tablets (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .gallery-section {
+        padding: 5rem 8%;
+    }
+
+    .gallery-section h2 {
+        font-size: 2.2rem;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1.3rem;
+    }
+}
+
+/* Mobile (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .gallery-section {
+        padding: 4rem 5%;
+    }
+
+    .gallery-section h2 {
+        font-size: 2rem;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small phones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .gallery-section {
+        padding: 3rem 3%;
+    }
+
+    .gallery-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .filter-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+/* =========================================
+ABOUT SECTION (MERGED + CLEAN)
+========================================= */
+
+.about-section {
+    padding: 6rem 10%;
+}
+
+/* Container */
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+
+    /* reset styles (merged) */
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* =========================================
+TEXT STYLING
+========================================= */
+
+.about-text h2,
+.about-text p,
+.stat h3,
+.stat p {
+    color: var(--main-text);
+    transition: color 0.3s ease;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-text p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Stats */
+.about-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+}
+
+/* =========================================
+IMAGE
+========================================= */
+
+.about-image img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* Light mode image */
+body.light-mode .about-image img {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+LIGHT MODE TEXT
+========================================= */
+
+body.light-mode .about-text p,
+body.light-mode .stat p {
+    color: #333333;
+}
+
+/* =========================================
+FILTER BUTTONS
+========================================= */
+
+.filter-btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    background: transparent;
+    border: 1px solid var(--main-text);
+    color: var(--main-text);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+.filter-btn:hover {
+    border-color: var(--primary);
+    color: #ffffff;
+    background-color: transparent;
+    box-shadow: 
+        0 0 20px rgba(117, 32, 187, 0.8), 
+        0 0 30px rgba(117, 32, 187, 0.4), 
+        inset 0 0 20px rgba(117, 32, 187, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Active */
+.filter-btn.active {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 5px 15px rgba(117, 32, 187, 0.3);
+    transform: scale(1.05);
+}
+
+/* Click */
+.filter-btn:active {
+    transform: scale(0.95);
+}
+
+/* Light mode buttons */
+body.light-mode .filter-btn {
+    border-color: #000;
+    color: #000;
+}
+
+/* =========================================
+RESPONSIVE
+========================================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .about-section {
+        padding: 5rem 8%;
+    }
+
+    .about-text h2 {
+        font-size: 2.2rem;
+    }
+
+    .stat h3 {
+        font-size: 1.6rem;
+    }
+
+    .about-stats {
+        gap: 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-section {
+        padding: 4rem 5%;
+    }
+
+    .about-text h2 {
+        font-size: 2rem;
+    }
+
+    .about-text p {
+        font-size: 1rem;
+    }
+
+    .about-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .stat h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Small devices */
+@media (max-width: 480px) {
+    .about-section {
+        padding: 3rem 3%;
+    }
+
+    .about-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-text p {
+        font-size: 0.9rem;
+    }
+
+    .stat h3 {
+        font-size: 1.3rem;
+    }
+}
+/* =========================================
+   CONTACT SECTION - MASTER STYLES
+========================================= */
+.contact-section {
+    padding: 6rem 10%;
+}
+
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+/* Contact Info */
+.contact-info {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.contact-info h3,
+.contact-info p,
+.contact-info i {
+    color: var(--main-text);
+}
+
+.contact-info p {
+    color: #ccc;
+    margin: 0.8rem 0;
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.9rem;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--main-text);
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px 11px;
+    border-radius: 8px;
+  background: rgba(255, 255, 255, 0.062);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Placeholder styling */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.397);
+    line-height: 2;
+    transform: scaleY(1.21);
+}
+
+body.light-mode .contact-form input::placeholder,
+body.light-mode .contact-form textarea::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+/* Focus state */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #a11fa1; 
+    box-shadow: 0 0 10px rgba(161, 31, 161, 0.4); 
+    background: rgba(255, 255, 255, 0.07); 
+}
+
+/* Submit button */
+.contact-form button {
+    width: 180px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.contact-form button:hover {
+    background: #a11fa1;
+    transform: translateY(-2px);
+}
+
+/* Light Mode Overrides */
+body.light-mode .contact-info h3,
+body.light-mode .contact-info p {
+    color: #000000;
+}
+
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+}
+
+/* Success popup */
+.success-popup {
     display: none;
     align-items: center;
     justify-content: center;
@@ -1347,336 +1096,369 @@ OTHER COMPONENTS
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* =========================================
+   THEME TOGGLE & CARDS
+   ========================================= */
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 1.8rem;
+    margin-left: 15px;
+    color: var(--main-text);
+    display: inline-block;
+    transition: color 0.3s ease;
 }
 
-/* Red error state for inputs */
-.contact-form input:focus, .contact-form textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
+.fa-sun { color: #dddb6fdc; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6)); }
+.fa-moon { color: #b0b0b0; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6)); }
+
+.car-card img {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-  /* ===============================
-     RESPONSIVE QUERIES
-  =============================== */
-  
-  /* Tablets */
-  @media screen and (max-width: 1024px) {
-      .contact-section {
-          padding: 5rem 8%;
-      }
-  
-      .contact-section h2 {
-          font-size: 2.2rem;
-          margin-bottom: 2.5rem;
-      }
-  }
-  
-  /* Mobile */
-  @media screen and (max-width: 768px) {
-      .contact-container {
-          grid-template-columns: 1fr; /* stack info and form */
-          gap: 2rem;
-      }
-  
-      .contact-section {
-          padding: 4rem 5%;
-      }
-  
-      .contact-section h2 {
-          font-size: 2rem;
-          margin-bottom: 2rem;
-      }
-  
-      .contact-form button {
-          width: 100%; /* button fills container */
-      }
-  }
-  
-  /* Small phones */
-  @media screen and (max-width: 480px) {
-      .contact-section {
-          padding: 3rem 3%;
-      }
-  
-      .contact-section h2 {
-          font-size: 1.8rem;
-      }
-  
-      .contact-form input,
-      .contact-form textarea {
-          font-size: 0.9rem;
-          padding: 10px;
-      }
-  }
-  /* =========================================
-     CAR GRID - RESPONSIVE
-  ========================================= */
-  
-  /* Grid already uses auto-fit, minmax, which is responsive by default. */
-  
-  /* Adjust card height for smaller screens */
-  .car-card img {
-      height: 220px; /* default */
-      object-fit: cover;
-      transition: transform 0.3s ease;
-  }
-  
-  /* Tablets */
-  @media screen and (max-width: 1024px) {
-      .car-card img {
-          height: 200px;
-      }
-  
-      .car-info {
-          padding: 1.2rem;
-      }
-  
-      .car-info h3 {
-          font-size: 1.1rem;
-      }
-  
-      .price {
-          font-size: 1.1rem;
-      }
-  }
-  
-  /* Mobile */
-  @media screen and (max-width: 768px) {
-      .car-card img {
-          height: 180px;
-      }
-  
-      .car-info h3 {
-          font-size: 1rem;
-      }
-  
-      .car-info p, .specs {
-          font-size: 0.85rem;
-      }
-  
-      .price {
-          font-size: 1rem;
-      }
-  }
-  
-  /* Small phones */
-  @media screen and (max-width: 480px) {
-      .car-card img {
-          height: 160px;
-      }
-  
-      .car-info {
-          padding: 1rem;
-      }
-  
-      .car-info h3 {
-          font-size: 0.95rem;
-      }
-  
-      .car-info p, .specs {
-          font-size: 0.8rem;
-      }
-  
-      .price {
-          font-size: 0.95rem;
-      }
-  }
-  .reveal {
+.car-info { padding: 1.5rem; }
+.price { font-size: 1.15rem; font-weight: bold; }
+
+/* Reveal animation */
+.reveal {
     opacity: 0;
     transform: translateY(60px);
     transition: 0.6s ease;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================
+   FINAL RESPONSIVE QUERIES
+   ========================================= */
+
+@media screen and (max-width: 1024px) {
+    .contact-section { padding: 5rem 8%; }
+    .contact-section h2 { font-size: 2.2rem; }
+    .car-card img { height: 200px; }
+}
+
+@media screen and (max-width: 768px) {
+    .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-section { padding: 4rem 5%; }
+    .contact-form button { width: 100%; }
+    .theme-toggle { font-size: 1.5rem; order: 2; }
+    .car-card img { height: 180px; }
+}
+
+@media screen and (max-width: 480px) {
+    .contact-section h2 { font-size: 1.8rem; }
+    .contact-form input, .contact-form textarea { font-size: 0.9rem; padding: 10px; }
+    .logo { font-size: 0.9rem; }
+    .car-card img { height: 160px; }
+}
+
+/* =========================================
+FOOTER (MERGED + CLEAN)
+========================================= */
+
+.footer {
+    background: #14041a;
+    border-top: 1px solid var(--glass-border);
+    padding: 4rem 10% 1rem;
+}
+
+/* Layout */
+.footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+}
+
+/* =========================================
+TEXT & COLORS
+========================================= */
+
+.footer h2,
+.footer h3,
+.footer p,
+.footer-links a,
+.footer-social i {
+    color: #ffffff;
+}
+
+/* Brand */
+.footer-brand h2 {
+    margin-bottom: 1rem;
+}
+
+.footer-brand span {
+    color: var(--primary);
+}
+
+.footer-brand p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* =========================================
+LINKS
+========================================= */
+
+.footer-links h3,
+.footer-social h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #aaa;
+    transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+/* =========================================
+SOCIAL
+========================================= */
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons a {
+    font-size: 20px;
+    color: #aaa;
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+FOOTER BOTTOM
+========================================= */
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+    color: #777;
+    font-size: 14px;
+}
+
+/* =========================================
+OTHER COMPONENTS
+========================================= */
+
+.car-card {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* =========================================
+RESPONSIVE
+========================================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .footer {
+        padding: 3rem 5% 1rem;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .footer-brand p {
+        font-size: 0.9rem;
+    }
+
+    .footer-links h3,
+    .footer-social h3 {
+        font-size: 1rem;
+    }
+
+    .social-icons a {
+        font-size: 18px;
+    }
+}
+
+/* Small devices */
+@media (max-width: 480px) {
+    .footer {
+        padding: 3rem 5% 1rem;
+    }
+
+    .footer-brand h2 {
+        font-size: 1.5rem;
+    }
+
+    .footer-links a,
+    .social-icons a {
+        font-size: 16px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+}
+
+/* =========================================
+   SCROLL REVEAL ANIMATION
+========================================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.9s ease;
 }
 
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
 }
-  /* =========================================
-     FOOTER & RESPONSIVE
-  ========================================= */
-  .footer{
-      background:#14041a;
-      border-top:1px solid var(--glass-border);
-      padding:4rem 10% 1rem;
-  }
-  
-  .footer-container{
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      gap:3rem;
-  }
-  
-  .footer-brand h2{
-      margin-bottom:1rem;
-  }
-  
-  .footer-brand span{
-      color:var(--primary);
-  }
-  
-  .footer-brand p{
-      color:#aaa;
-      line-height:1.6;
-  }
-  
-  .footer-links h3,
-  .footer-social h3{
-      margin-bottom:1rem;
-  }
-  
-  .footer-links ul{
-      list-style:none;
-  }
-  
-  .footer-links li{
-      margin-bottom:0.6rem;
-  }
-  
-  .footer-links a{
-      text-decoration:none;
-      color:#aaa;
-      transition:0.3s;
-  }
-  
-  .footer-links a:hover{
-      color:var(--primary);
-  }
-  
-  .social-icons{
-      display:flex;
-      gap:1rem;
-  }
-  
-  .social-icons a{
-      font-size:20px;
-      color:#aaa;
-      transition:0.3s;
-  }
-  
-  .social-icons a:hover{
-      color:var(--primary);
-      transform:translateY(-3px);
-  }
-  
-  .footer-bottom{
-      text-align:center;
-      margin-top:3rem;
-      padding-top:1rem;
-      border-top:1px solid var(--glass-border);
-      color:#777;
-      font-size:14px;
-  }
-  
-  /* =========================================
-     RESPONSIVE FOOTER & HERO
-  ========================================= */
-  @media (max-width: 992px) {
-      .hero {
-          flex-direction: column;
-          justify-content: center;
-          text-align: center;
-          gap: 3rem;
-          padding: 0 5%;
-      }
-  
-      .footer-container {
-          grid-template-columns: 1fr;
-          text-align: center;
-          gap: 2rem;
-      }
-  
-      .footer-links ul, .social-icons {
-          justify-content: center;
-      }
-  }
-  
-  @media (max-width: 768px) {
-      .footer {
-          padding:3rem 5% 1rem;
-      }
-  
-      .footer-brand p {
-          font-size: 0.9rem;
-      }
-  
-      .footer-links h3, .footer-social h3 {
-          font-size: 1rem;
-      }
-  
-      .social-icons a {
-          font-size: 18px;
-      }
-  
-      .hero-content h1 {
-          font-size: 2.4rem;
-      }
-  
-      .hero-content p {
-          font-size: 1rem;
-      }
-  
-      .btn-primary {
-          padding: 8px 16px;
-          font-size: 0.9rem;
-      }
-  }
-  
-  @media (max-width: 480px) {
-      .hero-content h1 {
-          font-size: 2rem;
-      }
-  
-      .hero-content p {
-          font-size: 0.9rem;
-      }
-  
-      .btn-primary {
-          padding: 7px 14px;
-          font-size: 0.85rem;
-      }
-  
-      .footer-bottom {
-          font-size: 12px;
-      }
-  }
-  
-  /* =========================================
-     SCROLL REVEAL ANIMATION
-  ========================================= */
-  .reveal{
-      opacity:0;
-      transform:translateY(60px);
-      transition: all 0.9s ease;
-  }
-  
-  .reveal.active{
-      opacity:1;
-      transform:translateY(0);
-  }
-  /* FORCE GAP BETWEEN NAVBAR AND HERO CONTENT (PC ONLY) */
+
+/* =========================================
+   PC ONLY: HERO SPACING & 3D CARD POSITION
+========================================= */
 @media screen and (min-width: 1025px) {
     #home.hero {
-        padding-top: 120px !important; /* Creates a 120px safety gap from the navbar */
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        min-height: 100vh !important;
+        padding-top: 120px; /* Safety gap from navbar */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 100vh;
     }
 
     .tilt-card-container {
-        margin-top: 40px !important; /* Specifically pushes the card down further if needed */
-        margin-right: 5% !important; /* Keeps it away from the right edge */
+        margin-top: 40px; /* Push card down slightly */
+        margin-right: 5%; /* Avoid edge collision */
+        animation: levitate 5s ease-in-out infinite;
     }
 }
 
-/* Floating Animation with specific PC angle */
+/* =========================================
+   FLOATING 3D CARD ANIMATION
+========================================= */
 @keyframes levitate {
     0%, 100% { transform: translateY(0) rotateY(-15deg); }
     50% { transform: translateY(-25px) rotateY(-15deg); }
 }
 
-.tilt-card-container {
-    animation: levitate 5s ease-in-out infinite !important;
+/* =========================================
+   RESPONSIVE HERO & FOOTER
+========================================= */
+/* Large tablets and small desktops */
+@media (max-width: 992px) {
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 3rem;
+        padding: 0 5%;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .footer-links ul,
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.4rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .footer {
+        padding: 3rem 5% 1rem;
+    }
+
+    .footer-brand p {
+        font-size: 0.9rem;
+    }
+
+    .footer-links h3,
+    .footer-social h3 {
+        font-size: 1rem;
+    }
+
+    .social-icons a {
+        font-size: 18px;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        padding: 7px 14px;
+        font-size: 0.85rem;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
 }
