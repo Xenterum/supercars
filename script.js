@@ -1,59 +1,75 @@
-// ===============================
-// 1. NAVBAR: Hamburger Toggle & Active Link
-// ===============================
+// ======================================
+// NAVBAR: Hamburger Toggle, Active Link & Smooth Scroll
+// ======================================
+
+// Select elements
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav ul li a");
-const hamburger = document.querySelector('.hamburger');
-const nav = document.querySelector('nav');
+const hamburger = document.querySelector(".hamburger");
+const nav = document.querySelector("nav");
 
-// Hamburger toggle
+// ----------------------
+// 1. Hamburger Menu Toggle
+// ----------------------
 hamburger.addEventListener('click', () => {
-    nav.classList.toggle('active'); // toggle active on nav, not ul
+    nav.classList.toggle('active');
+    hamburger.classList.toggle('active'); // 🔥 THIS
 });
-
-// Scroll-based active link
+// ----------------------
+// 2. Scroll-based Active Link
+// ----------------------
 window.addEventListener("scroll", () => {
-    let current = "";
+    let currentSectionId = "";
+
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop = section.offsetTop - 100; // Offset for navbar height
         if (scrollY >= sectionTop) {
-            current = section.getAttribute("id");
+            currentSectionId = section.getAttribute("id");
         }
     });
 
     navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-        }
+        link.classList.toggle(
+            "active",
+            link.getAttribute("href") === `#${currentSectionId}`
+        );
     });
 });
 
-// Smooth scroll
+// ----------------------
+// 3. Smooth Scroll + Close Menu on Click
+// ----------------------
 navLinks.forEach(link => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", e => {
         e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
+
+        const target = document.querySelector(link.getAttribute("href"));
         if (target) {
             target.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
             });
-            nav.classList.remove('active'); // close menu on click
+        }
+
+        // Close mobile menu if open
+        if (nav.classList.contains("active")) {
+            nav.classList.remove("active");
         }
     });
 });
 
-// ===============================
-// 2. HERO CARD 3D TILT - TIGHT HITBOX
-// ===============================
-const heroCard = document.getElementById('heroCard');
+// ======================================
+// HERO CARD 3D TILT (TIGHT HITBOX)
+// ======================================
+const heroCard = document.getElementById("heroCard");
 
-if(heroCard){
-    // Listen directly on the card, not the empty space around it
-    heroCard.addEventListener('mousemove', (e) => {
-        // Stop the CSS float so it doesn't fight the mouse
-        heroCard.style.animation = 'none'; 
+if (heroCard) {
+    // ----------------------
+    // Mouse Move: Tilt Effect
+    // ----------------------
+    heroCard.addEventListener("mousemove", (e) => {
+        // Temporarily stop the CSS levitate animation
+        heroCard.style.animation = "none";
 
         const rect = heroCard.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -62,26 +78,30 @@ if(heroCard){
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
-        // Limits the tilt so it stays classy
+        // Calculate tilt, capped at 15 degrees
         const rotateX = ((y - centerY) / centerY) * 15;
         const rotateY = ((x - centerX) / centerX) * 15;
 
         heroCard.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        heroCard.style.transition = "transform 0.1s ease"; // smooth follow
     });
 
-    heroCard.addEventListener('mouseleave', () => {
-        // Bring back the floating animation when the mouse leaves
+    // ----------------------
+    // Mouse Leave: Reset Tilt & Resume Float
+    // ----------------------
+    heroCard.addEventListener("mouseleave", () => {
         heroCard.style.transition = "transform 0.6s ease";
-        heroCard.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
-        
-        // Restart the CSS float after a tiny delay to keep it smooth
+        heroCard.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+
+        // Resume levitate animation after transition
         setTimeout(() => {
-            heroCard.style.animation = 'levitate 6s ease-in-out infinite';
+            heroCard.style.animation = "levitate 6s ease-in-out infinite";
         }, 600);
     });
 }
+
 // ===============================
-// 3. SMART GALLERY FILTERING
+// SMART GALLERY FILTERING
 // ===============================
 const filterButtons = document.querySelectorAll('.filter-btn');
 const carCards = document.querySelectorAll('.car-card');
@@ -89,52 +109,47 @@ const noResults = document.getElementById('no-results');
 
 filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+        // Highlight active button
         filterButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         const filter = btn.dataset.filter.toLowerCase();
-        let visibleCount = 0; // Track if any cars match
+        let hasVisible = false;
 
         carCards.forEach(card => {
             const brand = card.dataset.brand.toLowerCase();
-
-            if (filter === 'all' || brand === filter) {
-                card.style.display = "block";
-                visibleCount++;
-            } else {
-                card.style.display = "none";
-            }
+            const showCard = filter === 'all' || brand === filter;
+            card.style.display = showCard ? 'block' : 'none';
+            if (showCard) hasVisible = true;
         });
 
-        // Show "No Results" message if visibleCount is 0
-        if (visibleCount === 0) {
-            noResults.style.display = "block";
-        } else {
-            noResults.style.display = "none";
-        }
+        // Toggle "No Results" message
+        noResults.style.display = hasVisible ? 'none' : 'block';
     });
 });
 
 // ===============================
-// 4. SCROLL REVEAL
+// SCROLL REVEAL
 // ===============================
-function revealElements(){
+function revealElements() {
     const reveals = document.querySelectorAll(".reveal");
-    reveals.forEach((element)=>{
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const revealPoint = 120;
-        if(elementTop < windowHeight - revealPoint){
-            element.classList.add("active");
+    const windowHeight = window.innerHeight;
+    const revealPoint = 120;
+
+    reveals.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - revealPoint) {
+            el.classList.add("active");
         }
     });
 }
 
+// Listen for scroll and trigger once on load
 window.addEventListener("scroll", revealElements);
-revealElements(); // run once on load
+window.addEventListener("load", revealElements);
 
 // ===============================
-// 5. CONTACT FORM VALIDATION (Pure JS)
+// CONTACT FORM VALIDATION
 // ===============================
 const contactForm = document.getElementById('contactForm');
 const successMsg = document.getElementById('form-success');
@@ -142,17 +157,17 @@ const successMsg = document.getElementById('form-success');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const name = document.getElementById('name');
         const email = document.getElementById('email');
         const message = document.getElementById('message');
         let isValid = true;
 
-        // 1. Clear previous errors
+        // Clear previous errors
         document.querySelectorAll('.error-text').forEach(el => el.remove());
         [name, email, message].forEach(el => el.style.borderColor = "rgba(255,255,255,0.2)");
 
-        // 2. Validation Checks
+        // Validation
         if (name.value.trim().length < 3) {
             showValidation(name, "Please provide your name (min 3 chars).");
             isValid = false;
@@ -168,53 +183,55 @@ if (contactForm) {
             isValid = false;
         }
 
-        // 3. Success Notification
+        // Success
         if (isValid) {
             successMsg.style.display = "flex";
             contactForm.reset();
-            // Hide after 4 seconds
             setTimeout(() => { successMsg.style.display = "none"; }, 4000);
         }
     });
 }
 
 function showValidation(input, message) {
-    // Change border to red
     input.style.borderColor = "#ff4d4d";
-    
-    // Create error text element
+
     const error = document.createElement('div');
     error.className = 'error-text';
-    error.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    error.textContent = message;
     error.style.color = "#ff4d4d";
     error.style.fontSize = "0.85rem";
     error.style.marginTop = "5px";
-    
-    // Insert after input
+
     input.after(error);
 }
+
 // ===============================
-// 6. CLEAN THEME TOGGLE LOGIC
+// THEME TOGGLE (LIGHT / DARK)
 // ===============================
 const themeToggle = document.getElementById('themeToggle');
-const icon = themeToggle.querySelector('i');
 const bodyEl = document.body;
 
-themeToggle.addEventListener('click', () => {
-    bodyEl.classList.toggle('light-mode');
-    
-    if (bodyEl.classList.contains('light-mode')) {
-        // Switch to SUN (Light Mode)
-        icon.classList.replace('fa-moon', 'fa-sun');
-        icon.classList.add('animate-sun');
-        
-        // Remove class after animation finishes so it can re-run
-        setTimeout(() => icon.classList.remove('animate-sun'), 600);
-    } else {
-        // Switch to MOON (Dark Mode)
-        icon.classList.replace('fa-sun', 'fa-moon');
-        icon.classList.add('animate-moon');
-        
-        setTimeout(() => icon.classList.remove('animate-moon'), 600);
-    }
-});
+if (themeToggle) {
+    const icon = themeToggle.querySelector('i');
+
+    themeToggle.addEventListener('click', () => {
+        bodyEl.classList.toggle('light-mode');
+
+        if (!icon) return; // safety check
+
+        if (bodyEl.classList.contains('light-mode')) {
+            // Light mode: show sun
+            icon.classList.replace('fa-moon', 'fa-sun');
+            icon.classList.add('animate-sun');
+
+            setTimeout(() => icon.classList.remove('animate-sun'), 600);
+        } else {
+            // Dark mode: show moon
+            icon.classList.replace('fa-sun', 'fa-moon');
+            icon.classList.add('animate-moon');
+
+            setTimeout(() => icon.classList.remove('animate-moon'), 600);
+        }
+    });
+}
+
